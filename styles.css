@@ -119,6 +119,7 @@ h3 {
   width: 32px;
   height: 32px;
   flex: none;
+  object-fit: contain;
 }
 
 .wordmark-name {
@@ -150,10 +151,11 @@ h3 {
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 340px);
-  gap: clamp(48px, 8vw, 120px);
+  grid-template-columns: minmax(0, 0.92fr) minmax(300px, 1.08fr);
+  gap: clamp(36px, 5vw, 72px);
   align-items: center;
-  padding: clamp(72px, 10vw, 128px) 0 clamp(40px, 6vw, 72px);
+  min-width: 0;
+  padding: clamp(56px, 8vw, 104px) 0 clamp(40px, 6vw, 72px);
 }
 
 .eyebrow {
@@ -179,7 +181,7 @@ h3 {
 }
 
 .lede {
-  max-width: 38rem;
+  max-width: min(38rem, 100%);
   margin-top: 24px;
   font-size: 18px;
   line-height: 1.7;
@@ -216,16 +218,60 @@ h3 {
   font-size: 14px;
 }
 
-.hero-device {
+.hero-visual {
   margin: 0;
+  min-width: 0;
 }
 
-.hero-device figcaption,
+.hero-stage {
+  position: relative;
+  background: #e7fcee;
+  border-radius: 28px;
+}
+
+.hero-photo-wrap {
+  position: relative;
+}
+
+.hero-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 48% 42%;
+  border-radius: 28px 28px 0 0;
+  box-shadow: none;
+  max-width: 100%;
+}
+
+.hero-crew {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: min(64%, 400px);
+  max-width: 100%;
+  height: auto;
+  margin: -22% 0 0 auto;
+  pointer-events: none;
+}
+
+.hero-stage .device {
+  position: absolute;
+  z-index: 3;
+  left: 16px;
+  bottom: 16px;
+  width: 320px;
+  margin: 0;
+  transform: scale(0.5);
+  transform-origin: left bottom;
+}
+
+.hero-visual figcaption,
 .shots figcaption span {
   color: var(--muted);
 }
 
-.hero-device figcaption {
+.hero-visual figcaption {
   margin-top: 22px;
   text-align: center;
   font-size: 14px;
@@ -504,13 +550,13 @@ h3 {
 
 .benefits h3,
 .steps h3,
-.plans h3 {
+.price-grid h3,
+.compare-block h3 {
   font-size: 18px;
 }
 
 .benefits p,
-.steps p,
-.plans li {
+.steps p {
   margin-top: 8px;
   color: var(--muted);
   font-size: 15px;
@@ -828,16 +874,105 @@ h3 {
   max-width: 14ch;
 }
 
-.plans {
+.price-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
-.plans article {
-  padding: clamp(28px, 4vw, 40px);
+.price-grid article {
+  padding: clamp(24px, 3vw, 32px);
   border: 1px solid var(--line);
   border-radius: 20px;
+}
+
+.price {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.price span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--ink);
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.compare-block {
+  margin-top: clamp(56px, 8vw, 88px);
+}
+
+.compare-block h3 {
+  margin-bottom: 20px;
+}
+
+.feature-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.feature-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.feature-table caption {
+  caption-side: bottom;
+}
+
+.feature-table th,
+.feature-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 15px;
+  font-weight: 400;
+  vertical-align: top;
+}
+
+.feature-table thead th {
+  background: var(--wash);
+  font-weight: 600;
+}
+
+.feature-table tbody th {
+  font-weight: 500;
+}
+
+.feature-table td,
+.feature-table thead th:not(:first-child) {
+  width: 24%;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.feature-table tbody tr:last-child th,
+.feature-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.price-note {
+  max-width: 46rem;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .plan-pro {
@@ -854,34 +989,15 @@ h3 {
   text-transform: uppercase;
 }
 
+.plan-tag.is-empty {
+  visibility: hidden;
+}
+
 .plan-lead {
   margin-top: 12px;
   max-width: 28rem;
 }
 
-.plans ul {
-  margin: 28px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.plans li {
-  position: relative;
-  margin-top: 0;
-  padding: 12px 0 12px 22px;
-  border-top: 1px solid var(--line);
-}
-
-.plans li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 18px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-}
 
 .launch {
   padding-bottom: clamp(88px, 12vw, 140px);
@@ -965,17 +1081,68 @@ h3 {
   .hero,
   .benefits,
   .shots,
-  .steps ol,
-  .plans {
-    grid-template-columns: 1fr;
+  .steps ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .price-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero {
-    justify-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+    gap: 40px;
+    overflow: hidden;
   }
 
-  .hero-device {
-    width: min(100%, 360px);
+  .hero-copy,
+  .hero-visual {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-photo {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-position: 70% 42%;
+  }
+
+  .hero-visual,
+  .hero-stage,
+  .hero-photo-wrap {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .hero-stage {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .hero-crew {
+    width: 64%;
+    max-width: 100%;
+    margin: -4% auto 8px;
+  }
+
+  .hero-stage .device {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    width: 260px;
+    margin: 0;
+    transform: scale(0.46);
+    transform-origin: left bottom;
   }
 
   .benefits {
@@ -991,6 +1158,23 @@ h3 {
 @media (max-width: 720px) {
   .nav-links {
     display: none;
+  }
+
+  .price-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .plan-tag.is-empty {
+    display: none;
+  }
+
+  .hero-note {
+    flex-basis: 100%;
+  }
+
+  .lede {
+    width: 34ch;
+    max-width: 100%;
   }
 
   .footer {
@@ -1010,4 +1194,72 @@ h3 {
   html {
     scroll-behavior: auto;
   }
+}
+
+.nav-links a[aria-current="page"],
+.footer-links a[aria-current="page"] {
+  color: var(--ink);
+}
+
+.policy {
+  padding: clamp(40px, 6vw, 72px) 0 clamp(72px, 10vw, 120px);
+}
+
+.policy-inner {
+  width: min(40rem, calc(100% - var(--gutter) * 2));
+  margin-inline: auto;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.policy-back {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: var(--accent-deep);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.policy-back:hover {
+  text-decoration: underline;
+}
+
+.policy h1 {
+  max-width: 16ch;
+  font-size: clamp(32px, 4vw, 48px);
+}
+
+.policy-date {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.policy section {
+  margin-top: 36px;
+}
+
+.policy h2 {
+  margin-bottom: 8px;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.policy p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.policy p + p {
+  margin-top: 12px;
+}
+
+.policy-placeholder {
+  color: var(--ink);
+  background: var(--accent-soft);
+  padding: 0 0.3em;
+  border-radius: 4px;
+  font-weight: 500;
 }
